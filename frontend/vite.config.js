@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/search': {
-        target: 'https://backend-hono.kagome.workers.dev',
+        target: 'rakuten-api-proxy-practice-backend.kagome.workers.dev',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/search/, '/search')
       }
