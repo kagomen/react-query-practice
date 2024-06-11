@@ -7,10 +7,22 @@ function App() {
   const [books, setBooks] = useState(null)
 
   async function search(keyword) {
-    const res = await axios.get(`/search/${keyword}`)
-    setBooks(res.data.Items)
-    console.log('search', res.data.Items)
+    try {
+      const res = await axios.get(`/search/${keyword}`)
+      if (res.status === 200) {
+        // レスポンスが成功した場合の処理
+        setBooks(res.data.Items)
+        console.log('search', res.data.Items)
+      } else {
+        // レスポンスが成功しなかった場合の処理
+        console.error('APIからのレスポンスがエラーです:', res.status)
+      }
+    } catch (error) {
+      // エラーが発生した場合の処理
+      console.error('APIリクエスト中にエラーが発生しました:', error)
+    }
   }
+
 
   async function search2() {
     const res = await axios.get('https://www.googleapis.com/books/v1/volumes?q=React')
