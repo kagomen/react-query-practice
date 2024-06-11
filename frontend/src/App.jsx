@@ -17,6 +17,7 @@ function App() {
 
   return (
     <>
+      <h1 className='text-xl m-8'>書籍検索</h1>
       <SearchBar search={search} />
       {books ? <BookList books={books} /> : <p>Loading</p>}
     </>

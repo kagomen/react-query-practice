@@ -1,5 +1,14 @@
 import { Hono } from 'hono'
+import { cors } from 'hono/cors'
+
 const app = new Hono()
+
+app.use(
+	'/search/*',
+	cors({
+		origin: ['https://proxy-server-practice.pages.dev']
+	})
+)
 
 app.get('/search/:keyword', async (c) => {
 	try {
