@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/search': {
-        target: 'http://localhost:3003',
+        target: 'https://backend-hono.kagome.workers.dev',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/search/, '/search')
       }
