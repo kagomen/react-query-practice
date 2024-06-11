@@ -4,7 +4,7 @@ import { cors } from 'hono/cors'
 const app = new Hono()
 
 app.use(
-	'*',
+	'/search/*',
 	cors({
 		origin: ['https://proxy-server-practice.pages.dev']
 	})
