@@ -1,22 +1,23 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import BookList from './BookList'
+import SearchBar from './SearchBar'
 
 function App() {
   const [books, setBooks] = useState(null)
 
-  async function search() {
-    const res = await axios.get('/search')
+  async function search(keyword) {
+    const res = await axios.get(`/search/${keyword}`)
     setBooks(res.data.Items)
-    console.log(res)
   }
 
   useEffect(() => {
-    search()
+    search('React')
   }, [])
 
   return (
     <>
+      <SearchBar search={search} />
       {books ? <BookList books={books} /> : <p>Loading</p>}
     </>
   )
