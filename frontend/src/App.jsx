@@ -8,7 +8,7 @@ function App() {
 
   async function search(keyword) {
     try {
-      const res = await axios.get(`/search/${keyword}`)
+      const res = await axios.get(`https://rakuten-api-proxy-practice-backend.kagome.workers.dev/search/${keyword}`)
       if (res.status === 200) {
         // レスポンスが成功した場合の処理
         setBooks(res.data.Items)
@@ -23,15 +23,8 @@ function App() {
     }
   }
 
-
-  async function search2() {
-    const res = await axios.get('https://www.googleapis.com/books/v1/volumes?q=React')
-    console.log('search2', res.data)
-  }
-
   useEffect(() => {
     console.log('^. _ . ^ ')
-    search2()
     search('React')
   }, [])
 
@@ -40,7 +33,6 @@ function App() {
       <h1 className='text-xl m-8'>書籍検索</h1>
       <SearchBar search={search} />
       {books ? <BookList books={books} /> : <p>Loading</p>}
-
     </>
   )
 }
