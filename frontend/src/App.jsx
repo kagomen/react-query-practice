@@ -6,11 +6,11 @@ import Loading from './Loading'
 
 function App() {
   const [books, setBooks] = useState(null)
-  const url = 'https://rakuten-api-proxy-practice-backend.kagome.workers.dev'
+  // const url = 'https://rakuten-api-proxy-practice-backend.kagome.workers.dev'
 
   async function search(keyword) {
     try {
-      const res = await axios.get(`${url}/search/${keyword}`)
+      const res = await axios.get(`/search/${keyword}`)
       setBooks(res.data.Items)
       console.log('search', res.data.Items)
     } catch (error) {
