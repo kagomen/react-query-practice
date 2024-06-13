@@ -5,7 +5,7 @@ const app = new Hono()
 
 app.use(
 	cors({
-		origin: ['https://proxy-server-practice.pages.dev']
+		origin: ['https://proxy-server-practice.pages.dev', 'http://localhost:5173']
 	})
 )
 
