@@ -14,4 +14,13 @@ export default defineConfig({
   //     }
   //   }
   // }
+  server: {
+    port: 5173, // 必要に応じてデフォルトのポートを設定
+    proxy: {
+      '/search': {
+        target: 'https://rakuten-api-proxy-practice-backend.kagome.workers.dev', // Honoサーバーのアドレス
+        changeOrigin: true
+      }
+    }
+  }
 })

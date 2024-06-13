@@ -12,7 +12,8 @@ async function fetcher(url) {
 
 function App() {
   const [keyword, setKeyword] = useState('React')
-  const url = `https://rakuten-api-proxy-practice-backend.kagome.workers.dev/search/${keyword}`
+  // const url = `https://rakuten-api-proxy-practice-backend.kagome.workers.dev/search/${keyword}`
+  const url = `/search/${keyword}`
   const { data, error, isLoading, mutate } = useSWR(url, fetcher)
 
   function search(newKeyword) {
