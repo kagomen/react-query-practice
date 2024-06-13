@@ -11,9 +11,10 @@ function App() {
   async function search(keyword) {
     try {
       // const res = await axios.get(`${url}/search/${keyword}`)
-      const res = await axios.get(`/search/${keyword}`)
-      setBooks(res.data.Items)
-      console.log('search', res.data.Items)
+      const res = await fetch(`/search/${keyword}`)
+      const data = await res.json();
+      setBooks(data.Items)
+      console.log('search', data.Items)
     } catch (error) {
       console.error('Error: ', error)
     }
