@@ -44,3 +44,20 @@ export default defineConfig({
 Vite の Server.proxy の設定は、ビルド時にパスの解決をしてくれるものではなかった。
 なので、手動で設定する必要がある。
 参考: https://github.com/vitejs/vite/discussions/8043
+
+## 現状
+
+```
+// .env.development
+VITE_SERVER_URL=''
+```
+
+```
+// .env.production
+VITE_SERVER_URL='https://rakuten-api-proxy-practice-backend.kagome.workers.dev'
+```
+
+注意
+
+- `.env.[mode].local`は Git に無視されるので、push しても変更が反映されない
+- もし環境変数を秘匿したい場合は、ホスティングサービスに手動で登録する必要がある
