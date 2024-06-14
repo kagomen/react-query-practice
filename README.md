@@ -47,6 +47,40 @@ Vite の Server.proxy の設定は、ビルド時にパスの解決をしてく�
 
 ## 現状
 
+以下のようにして解決
+
+```js
+// backend/index.js
+// corsに本番環境のみ適用
+app.use(
+  cors({
+    origin: "https://proxy-server-practice.pages.dev",
+  })
+);
+```
+
+```js
+// vite.config.js
+// 開発環境のcorsエラーはこちらで対応
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    proxy: {
+      "/search": {
+        target: "https://rakuten-api-proxy-practice-backend.kagome.workers.dev",
+        changeOrigin: true,
+      },
+    },
+  },
+});
+```
+
+```js
+// App.jsx
+const url = `${import.meta.env.VITE_SERVER_URL}/search/${keyword}`;
+const { data, error, isLoading, mutate } = useSWR(url, fetcher);
+```
+
 ```
 // .env.development
 VITE_SERVER_URL=''

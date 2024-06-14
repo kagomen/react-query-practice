@@ -9,10 +9,11 @@ app.use(
 	})
 )
 
-app.get('/search/:keyword', async (c) => {
+app.get('/search/:keyword/:page', async (c) => {
 	try {
 		const keyword = c.req.param('keyword')
-		const url = `${c.env.API_URL}?format=json&keyword=${keyword}&booksGenreId=000&applicationId=${c.env.API_KEY}`
+		const page = c.req.param('page')
+		const url = `${c.env.API_URL}?format=json&keyword=${keyword}&booksGenreId=000&page=${page}&applicationId=${c.env.API_KEY}`
 		const response = await fetch(url)
 		const data = await response.json()
 
@@ -23,8 +24,8 @@ app.get('/search/:keyword', async (c) => {
 		}
 
 		return c.json(filteredData)
-	} catch (err) {
-		return c.json({ error: `Error: ${err.message}` }, 500)
+	} catch (e) {
+		return c.json({ error: `Error: ${e.message}` }, 500)
 	}
 })
 
