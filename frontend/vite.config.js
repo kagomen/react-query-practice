@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/search': {
-        target: 'https://rakuten-api-proxy-practice-backend.kagome.workers.dev',
+        target: 'https://react-query-practice-backend.kagome.workers.dev',
         changeOrigin: true
       }
     }
