@@ -5,7 +5,7 @@ const app = new Hono()
 
 app.use(
 	cors({
-		origin: ''
+		origin: 'https://react-query-practice.pages.dev'
 	})
 )
 
