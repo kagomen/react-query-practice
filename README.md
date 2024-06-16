@@ -6,20 +6,19 @@
 ## Suspense のあれこれについて
 
 React の標準機能に Suspense という機能があります。  
-具体的には以下の
+具体的には以下のような条件分岐を
 
 ```js
 if (status === "pending") {
-  // ここと
-  return <Loading />; // ここと
+  return <Loading />;
 }
 if (status === "error") {
   return <Error />;
 }
-return <Content />; // ここ
+return <Content />;
 ```
 
-を、このように
+以下のように
 
 ```js
 <Suspense fallback={<Loading />}>
@@ -27,11 +26,14 @@ return <Content />; // ここ
 </Suspense>
 ```
 
-書くことができるという機能らしい。
+書くことができるという機能らしいです。
 
 ### Suspense のメリット
 
 https://ja.react.dev/reference/react/Suspense
+
+多分、めちゃくちゃ大雑把にまとめるとコードが簡単になる、ということだと思う……。
+コードが簡単になる理由が複数あるっぽいので調査中です。
 
 ## ReactQuery で Suspense 機能を使う
 
