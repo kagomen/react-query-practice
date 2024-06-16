@@ -94,9 +94,7 @@ function App() {
 
 </details>
 
-[^1]: ReactQuery v4 までは（現在は v5）、 [Suspensive](https://suspensive.org/) というライブラリを`npm install`することによって Suspense 機能を提供していた。現在の ReactQuery v5 から Suspensive の Suspense 機能は ReactQuery の標準機能となり、インストールが不要になった。
-
-[Suspensive](https://suspensive.org/docs/react-query/useSuspenseQuery)
+[^1]: ReactQuery v4（現在は v5） までは、 [Suspensive](https://suspensive.org/) というライブラリを`npm install`することによって useSuspenseQuery を利用することが可能でした。ReactQuery v5 から、Suspensive の Suspense 機能は ReactQuery の標準機能となり、インストールが不要になりました。
 
 ## Error Boundary について
 
