@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import BookList from './components/BookList';
 import SearchBar from './components/SearchBar';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import Loading from './components/Loading';
 import Error from './components/Error';
 import MoreLoadBtn from './components/MoreLoadBtn';
@@ -10,7 +10,7 @@ import ReachingEndMessage from './components/ReachingEndMessage';
 function App() {
   const [keyword, setKeyword] = useState('TypeScript')
 
-  const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteQuery({
+  const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useSuspenseInfiniteQuery({
     queryKey: ['bookSearch', keyword],
     queryFn: ({ pageParam }) => fetchBooks(keyword, pageParam),
     refetchOnWindowFocus: false,
