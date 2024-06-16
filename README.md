@@ -1,9 +1,11 @@
+# ReactQuery について
+
 ## TanStackQuery ≒ ReactQuery
 
-- 元々は React 専用のデータフェッチングライブラリで、ReactQuery という名前だった
-- Vue や Angular、Svelte など色んな JS フレームワークで使用できるようになり、名前を TanStackQuery に改名した
+- 元々は React 専用のデータフェッチングライブラリで、ReactQuery という名前でした。
+- Vue や Angular、Svelte など色んな JS フレームワークで使用できるようになり、名前を TanStackQuery に改名しました。
 
-## Suspense のあれこれについて
+## Suspense 機能について
 
 React の標準機能に Suspense という機能があります。  
 具体的には以下のような条件分岐を
@@ -26,14 +28,13 @@ return <Content />;
 </Suspense>
 ```
 
-書くことができるという機能らしいです。
+書くことができる、という機能です。
 
 ### Suspense のメリット
 
-https://ja.react.dev/reference/react/Suspense
-
-多分、めちゃくちゃ大雑把にまとめるとコードが簡単になる、ということだと思う……。
-コードが簡単になる理由が複数あるっぽいので調査中です。
+多分、めちゃくちゃ大雑把にまとめるとコードが簡単になる、ということだと思います……。
+詳しくは[公式ドキュメント](https://ja.react.dev/reference/react/Suspense)を読んでください。
+想像以上に複雑な話っぽいので調査中です。
 
 ## ReactQuery で Suspense 機能を使う
 
@@ -48,7 +49,7 @@ ReactQuery のデータフェッチングと一緒に Suspense 機能を使う�
 
 <details>
 
-<summary>useSuspenseQueryを選択する理由</summary>
+<summary>useSuspenseQueryを選択する理由 （クリックで開きます）</summary>
 
 理由としては、React の Suspense はまだ未完全（？）で、Next.js と Relay でのフェッチデータと、lazy や use を用いたデータ以外はサポート対象外であり不安定であると述べているからです。[参照](https://ja.react.dev/reference/react/Suspense)
 
@@ -89,8 +90,8 @@ function App() {
 ```
 
 ただの推測ですが、Suspense 使用時に{data}の型が TData にならないことは、 React 公式が ReactQuery をサポートしてないことに起因しているのではないかなと思いました。  
-なのでとりあえず強いこだわりがない限り、ReactQuery に最適化された useSuspenseQuery を使っておくのが良いと思います。  
-（TypeScript 使ってないので、よくわかりません）
+とりあえず強いこだわりがない限り、ReactQuery に最適化された useSuspenseQuery を使っておくのが良いと思います。  
+（私は TypeScript 使ってないので、よくわかりません）
 
 </details>
 
@@ -98,14 +99,30 @@ function App() {
 
 ## Error Boundary について
 
-> 現在、関数コンポーネントとしてエラーバウンダリを書く方法はありません。しかし、自分でエラーバウンダリクラスを書く必要はありません。例えば、代わりに react-error-boundary を使用することができます。
+Suspense 機能でローディング画面の条件分岐は簡略化できましたが、エラーハンドリング部分については Suspense の責務外です。
+
+```js
+if (status === "pending") {
+  return <Loading />;
+}
+// ↓ここ
+if (status === "error") {
+  return <Error />;
+}
+return <Content />;
+```
+
+これも簡単に書きたいところですが、React 標準ではクラスコンポーネントでしかエラーバウンダリーを書くことができないらしいです。
+
+> 現在、関数コンポーネントとしてエラーバウンダリを書く方法はありません。
 > [React - 補足](https://ja.react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary)
 
-React 標準機能でエラーバウンダリを実装する場合、クラスコンポーネントでは書けるが（現在主流の）関数コンポーネントでは書けない、ということらしいです。
+なので代わりに react-error-boundary というライブラリを使用します。  
+React 公式もこのライブラリ使ってねーって言ってます。
 
 ## react-error-boundary とは
 
-関数コンポーネントとしてエラーバウンダリを記述できるライブラリです。  
+関数コンポーネントとしてエラーバウンダリーを記述できるライブラリです。  
 `npm install`して使います。
 
 引数を持たないシンプルな実装は以下の通りです。
