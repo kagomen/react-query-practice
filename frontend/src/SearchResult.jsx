@@ -3,7 +3,6 @@ import BookList from "./components/BookList"
 import MoreLoadBtn from "./components/MoreLoadBtn"
 import ReachingEndMessage from "./components/ReachingEndMessage"
 import Loading from "./components/Loading"
-import Error from "./components/Error"
 
 const SearchResult = (props) => {
 
@@ -31,7 +30,7 @@ const SearchResult = (props) => {
   const books = data?.pages?.flatMap(page => page.Items) || []
 
   if (error) {
-    return <Error error={error} />
+    throw error;
   }
 
   return (
