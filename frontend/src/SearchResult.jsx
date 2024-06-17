@@ -1,5 +1,7 @@
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query"
+import { useInView } from "react-intersection-observer"
 import BookList from "./components/BookList"
+import { useEffect } from "react"
 
 const SearchResult = (props) => {
 
@@ -21,6 +23,8 @@ const SearchResult = (props) => {
     }
   })
 
+  const { ref, inView } = useInView()
+
   async function fetchBooks(keyword, pageParam) {
     const url = `${import.meta.env.VITE_SERVER_URL}/search/${keyword}/${pageParam}`
     const res = await fetch(url)
@@ -36,10 +40,27 @@ const SearchResult = (props) => {
 
   const books = data?.pages?.flatMap(page => page.Items) || []
 
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage()
+    }
+  }, [inView, hasNextPage, fetchNextPage, isFetchingNextPage])
+
   return (
     <div>
       <BookList books={books} />
-      <button
+
+      {/* スクロールで無限ローディング */}
+      <div ref={ref} className="w-fit mx-auto">
+        {isFetchingNextPage
+          ? 'ローディング中...'
+          : hasNextPage
+            ? 'もっと見る'
+            : 'すべてのアイテムを表示しました'}
+      </div>
+
+      {/* ボタン操作で無限ローディング */}
+      {/* <button
         onClick={fetchNextPage}
         disabled={isFetchingNextPage || !hasNextPage}
         className='block w-fit mx-auto px-4 py-2 border border-stone-800 disabled:opacity-50'
@@ -49,7 +70,7 @@ const SearchResult = (props) => {
           : hasNextPage
             ? 'もっと見る'
             : 'すべてのアイテムを表示しました'}
-      </button>
+      </button> */}
 
     </div>
   )
