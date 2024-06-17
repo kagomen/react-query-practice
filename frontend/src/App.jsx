@@ -16,7 +16,7 @@ function App() {
   return (
     <div className='my-8'>
       <SearchBar search={search} />
-      <ErrorBoundary fallbackRender={({ error }) => <Error error={error} />}>
+      <ErrorBoundary fallbackRender={({ error, resetErrorBoundary }) => <Error error={error} resetErrorBoundary={resetErrorBoundary} />}>
         <Suspense fallback={<Loading />}>
           <SearchResult keyword={keyword} />
         </Suspense>

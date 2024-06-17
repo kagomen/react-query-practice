@@ -24,13 +24,19 @@ const SearchResult = (props) => {
     const url = `${import.meta.env.VITE_SERVER_URL}/search/${keyword}/${pageParam}`
     const res = await fetch(url)
     const data = await res.json()
+
+    // エラーバウンダリのテスト
+    if (keyword == 'error') {
+      throw new Error('🎤 < エラーチェックワンツー');
+    }
+
     return data
   }
 
   const books = data?.pages?.flatMap(page => page.Items) || []
 
   if (error) {
-    throw error;
+    throw error
   }
 
   return (
