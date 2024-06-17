@@ -5,13 +5,17 @@ const SearchResult = (props) => {
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useSuspenseInfiniteQuery({
     queryKey: ['bookSearch', props.keyword],
-    queryFn: ({ pageParam }) => fetchBooks(props.keyword, pageParam),
+    queryFn: ({ pageParam }) => {
+      console.log('フェッチしました');
+      return fetchBooks(props.keyword, pageParam)
+    },
     refetchOnWindowFocus: false,
     initialPageParam: 1,
     // getNextPageParam:
     // 引数: 現在のページのデータ (lastPage) とこれまでのすべてのページのデータ (allPages)
     // 返り値: 次のページのパラメータ (次のページが存在しない場合は undefined ) => hasNextPageに反映される
     getNextPageParam: (lastPage, allPages) => {
+      console.log('getNextPageParamが実行されました');
       const nextPage = allPages.length + 1
       return nextPage <= lastPage.pageCount ? nextPage : undefined
     }
@@ -24,7 +28,7 @@ const SearchResult = (props) => {
 
     // エラーバウンダリのテスト
     if (keyword == 'error') {
-      throw new Error('🎤 < エラーチェックワンツー');
+      throw new Error('エラーチェックワンツー');
     }
 
     return data
@@ -40,7 +44,11 @@ const SearchResult = (props) => {
         disabled={isFetchingNextPage || !hasNextPage}
         className='block w-fit mx-auto px-4 py-2 border border-stone-800 disabled:opacity-50'
       >
-        {isFetchingNextPage ? 'ローディング中...' : hasNextPage ? 'もっと見る' : 'すべてのアイテムを表示しました'}
+        {isFetchingNextPage
+          ? 'ローディング中...'
+          : hasNextPage
+            ? 'もっと見る'
+            : 'すべてのアイテムを表示しました'}
       </button>
 
     </div>
