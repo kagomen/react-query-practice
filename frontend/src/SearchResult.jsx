@@ -6,7 +6,7 @@ import Loading from "./components/Loading"
 
 const SearchResult = (props) => {
 
-  const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useSuspenseInfiniteQuery({
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useSuspenseInfiniteQuery({
     queryKey: ['bookSearch', props.keyword],
     queryFn: ({ pageParam }) => fetchBooks(props.keyword, pageParam),
     refetchOnWindowFocus: false,
@@ -34,10 +34,6 @@ const SearchResult = (props) => {
   }
 
   const books = data?.pages?.flatMap(page => page.Items) || []
-
-  if (error) {
-    throw error
-  }
 
   return (
     <div>

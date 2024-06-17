@@ -43,4 +43,6 @@ import { ErrorBoundary } from "react-error-boundary";
 
 ## ReactQuery で react-error-boundary を使う
 
-調査中
+throwOnError オプションは、デフォルトではエラーが発生したら必ずエラー境界に投げるわけではなく、
+キャッシュにデータがある場合はエラーを投げないように設定されています。
+このため、エラーを全てエラー境界で処理したい場合には、手動でエラーを投げる必要があります。
