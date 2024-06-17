@@ -1,8 +1,5 @@
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query"
 import BookList from "./components/BookList"
-import MoreLoadBtn from "./components/MoreLoadBtn"
-import ReachingEndMessage from "./components/ReachingEndMessage"
-import Loading from "./components/Loading"
 
 const SearchResult = (props) => {
 
@@ -13,7 +10,7 @@ const SearchResult = (props) => {
     initialPageParam: 1,
     // getNextPageParam:
     // 引数: 現在のページのデータ (lastPage) とこれまでのすべてのページのデータ (allPages)
-    // 返り値: 次のページのパラメータ (次のページが存在しない場合は undefined )
+    // 返り値: 次のページのパラメータ (次のページが存在しない場合は undefined ) => hasNextPageに反映される
     getNextPageParam: (lastPage, allPages) => {
       const nextPage = allPages.length + 1
       return nextPage <= lastPage.pageCount ? nextPage : undefined
@@ -38,12 +35,14 @@ const SearchResult = (props) => {
   return (
     <div>
       <BookList books={books} />
-      {isFetchingNextPage && <Loading />}
-      {hasNextPage ? (
-        <MoreLoadBtn loadMore={fetchNextPage} />
-      ) : (
-        <ReachingEndMessage />
-      )}
+      <button
+        onClick={fetchNextPage}
+        disabled={isFetchingNextPage || !hasNextPage}
+        className='block w-fit mx-auto px-4 py-2 border border-stone-800 disabled:opacity-50'
+      >
+        {isFetchingNextPage ? 'ローディング中...' : hasNextPage ? 'もっと見る' : 'すべてのアイテムを表示しました'}
+      </button>
+
     </div>
   )
 }

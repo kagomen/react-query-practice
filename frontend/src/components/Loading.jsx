@@ -1,6 +1,6 @@
 const Loading = () => {
   return (
-    <div className="m-8">Loading...</div>
+    <div className="w-fit mx-auto">ローディング中...</div>
   )
 }
 
