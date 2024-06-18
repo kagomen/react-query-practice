@@ -8,7 +8,7 @@ import Error from './components/Error';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 
 function App() {
-  const [keyword, setKeyword] = useState('TypeScript')
+  const [keyword, setKeyword] = useState('JavaScript')
 
   function search(word) {
     setKeyword(word)
